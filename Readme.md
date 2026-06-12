@@ -73,7 +73,7 @@ resume-analyzer/
 ### Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/ai-resume-analyzer.git
+git clone https://github.com/harshad3322/ai-resume-analyzer.git
 
 cd ai-resume-analyzer
 ```
