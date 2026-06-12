@@ -1,0 +1,76 @@
+# Virtual Environment
+
+venv/
+nenv/
+env/
+
+# Python Cache
+
+**pycache**/
+*.py[cod]
+*$py.class
+
+# Environment Variables
+
+.env
+
+# Database
+
+*.db
+*.sqlite3
+
+# Flask
+
+instance/
+.webassets-cache/
+
+# VS Code
+
+.vscode/
+
+# PyCharm
+
+.idea/
+
+# Logs
+
+*.log
+
+# OS Files
+
+.DS_Store
+Thumbs.db
+
+# Build Files
+
+build/
+dist/
+*.egg-info/
+
+# Testing
+
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Uploads
+
+uploads/
+
+# Temporary Files
+
+*.tmp
+*.bak
+
+# Jupyter
+
+.ipynb_checkpoints/
+
+# Local Certificates
+
+certs/
+
+# Generated Reports
+
+reports/
+exports/

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <h2>Welcome Back</h2>
+
+        <p class="sub-text">
+            Login to access your account
+        </p>
+
+        <form method="POST">
+
+            <!-- CSRF Token --> <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" >
+
+            <label for="email">
+                Email
+            </label>
+
+            <input
+                id="email"
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                value="{{ request.form.get('email', '') }}"
+                autocomplete="email"
+                required
+            >
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                id="password"
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
+        <p class="switch-auth">
+
+            Don't have an account?
+
+            <a href="{{ url_for('signup') }}">
+                Sign Up
+            </a>
+
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

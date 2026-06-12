@@ -1,0 +1,186 @@
+{% extends "base.html" %} {% block title %} Dashboard {% endblock %} {% block
+content %}
+
+<h1 class="page-title">Welcome Back 👋, {{ user }}</h1>
+
+<!-- ANALYZER FORM -->
+
+<div class="card">
+  <h2>Resume Analysis</h2>
+
+  <p class="sub-text">
+    Upload or paste your resume and get AI-powered career insights.
+  </p>
+
+  <form method="POST" enctype="multipart/form-data">
+    <input
+      type="hidden"
+      name="csrf_token"
+      value="{{ csrf_token() }}"
+    >
+    <label> Resume Text </label>
+
+    <textarea name="resume" placeholder="Paste your resume here...">
+{{ request.form.get("resume", "") }}</textarea
+    >
+
+    <label> Upload Resume </label>
+
+    <input type="file" name="file" accept=".pdf,.docx" />
+
+    <label> Target Role </label>
+
+    <input
+      type="text"
+      name="role"
+      placeholder="Software Engineer, Data Analyst, ML Engineer..."
+      value="{{ request.form.get('role', '') }}"
+      required
+    />
+
+    <button type="submit">Analyze Resume</button>
+  </form>
+</div>
+
+{% if result %} {% if result.get("error") %}
+
+<div class="card">
+  <h3>Error</h3>
+
+  <p style="color: #ef4444">{{ result.get("error") }}</p>
+</div>
+
+{% else %}
+
+<!-- ATS SCORE -->
+
+<div class="card ats-card">
+  <h2>ATS Compatibility Score</h2>
+
+  <br />
+
+  {% set score = result.get("ats_score", 0) %}
+
+  <div
+    class="score-circle {% if score >= 75 %} score-good {% elif score >= 50 %} score-average {% else %} score-bad {% endif %}"
+    style="
+        --score: {{ score }};
+    "
+  >
+    <div class="score-inner">
+      <div class="score-number">{{ result.get("ats_score",0) }}</div>
+
+      <div class="score-label">/100</div>
+    </div>
+  </div>
+</div>
+
+<!-- GRID -->
+
+<div class="dashboard-grid">
+  <!-- SKILLS -->
+
+  <div class="card">
+    <h3>Skills Detected</h3>
+
+    <br />
+
+    <div class="badge-container">
+      {% for skill in result.get("skills", []) %}
+
+      <span class="badge badge-skill"> {{ skill }} </span>
+
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- MISSING SKILLS -->
+
+  <div class="card">
+    <h3>Missing Skills</h3>
+
+    <br />
+
+    {% if result.get("missing_skills") %}
+
+    <div class="badge-container">
+      {% for skill in result.get("missing_skills", []) %}
+
+      <span class="badge badge-missing"> {{ skill }} </span>
+
+      {% endfor %}
+    </div>
+
+    {% else %}
+
+    <p class="sub-text">🎉 No major missing skills detected.</p>
+
+    {% endif %}
+  </div>
+
+  <!-- STRENGTHS -->
+
+  <div class="card">
+    <h3>Strengths</h3>
+
+    <br />
+
+    <ul>
+      {% for item in result.get("strengths", []) %}
+
+      <li>{{ item }}</li>
+
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- WEAKNESSES -->
+
+  <div class="card">
+    <h3>Areas To Improve</h3>
+
+    <br />
+
+    <ul>
+      {% for item in result.get("weaknesses", []) %}
+
+      <li>{{ item }}</li>
+
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<!-- ROADMAP -->
+
+<div class="card">
+  <h2>Career Roadmap</h2>
+
+  <br />
+
+  <ul>
+    {% for item in result.get("roadmap", []) %}
+
+    <li>{{ item }}</li>
+
+    {% endfor %}
+  </ul>
+</div>
+
+<!-- QUESTIONS -->
+
+<div class="card">
+  <h2>Interview Questions</h2>
+
+  <br />
+
+  <ul>
+    {% for item in result.get("interview_questions", []) %}
+
+    <li>{{ item }}</li>
+
+    {% endfor %}
+  </ul>
+</div>
+
+{% endif %} {% endif %} {% endblock %}

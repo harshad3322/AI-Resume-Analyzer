@@ -1,0 +1,300 @@
+{% extends "base.html" %}
+
+{% block title %}
+History
+{% endblock %}
+
+{% block content %}
+
+<h1 class="page-title">
+    Analysis History
+</h1>
+
+{% if reports %}
+
+    {% for r in reports %}
+
+    <div class="card">
+
+        <div
+            style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+            gap:15px;
+            "
+        >
+
+            <div>
+
+                <h2 style="margin-bottom:10px;">
+
+                    ATS Score:
+                    {{ r.ats_score }}/100
+
+                </h2>
+
+                {% if r.target_role %}
+
+                <p class="sub-text">
+
+                    Target Role:
+                    <strong>{{ r.target_role }}</strong>
+
+                </p>
+
+                {% endif %}
+
+                {% if r.created_at %}
+
+                <p class="sub-text">
+
+                    {{ r.created_at }}
+
+                </p>
+
+                {% endif %}
+
+            </div>
+
+            <div>
+
+                <div
+                    class="score-circle"
+                    style="
+                    --score: {{ r.ats_score }};
+                    width:120px;
+                    height:120px;
+                    "
+                >
+
+                    <div
+                        class="score-inner"
+                        style="
+                        width:90px;
+                        height:90px;
+                        "
+                    >
+
+                        <div
+                            style="
+                            font-size:22px;
+                            font-weight:800;
+                            "
+                        >
+                            {{ r.ats_score }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr
+            style="
+            margin:25px 0;
+            border:none;
+            border-top:1px solid #e2e8f0;
+            "
+        >
+
+        <h3>
+            Resume Preview
+        </h3>
+
+        <p
+            style="
+            color:#64748b;
+            line-height:1.8;
+            word-break:break-word;
+            "
+        >
+            {{ (r.resume or "")[:300] }}...
+        </p>
+
+        {% if r.result.get("error") %}
+
+        <div
+            style="
+            margin-top:20px;
+            color:#ef4444;
+            "
+        >
+            {{ r.result.get("error") }}
+        </div>
+
+        {% else %}
+
+        <div class="dashboard-grid">
+
+            <!-- SKILLS -->
+
+            <div class="card">
+
+                <h3>
+                    Skills
+                </h3>
+
+                <br>
+
+                <div class="badge-container">
+
+                    {% for skill in r.result.get("skills", []) %}
+
+                    <span class="badge badge-skill">
+                        {{ skill }}
+                    </span>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <!-- MISSING -->
+
+            <div class="card">
+
+                <h3>
+                    Missing Skills
+                </h3>
+
+                <br>
+
+                <div class="badge-container">
+
+                    {% for skill in r.result.get("missing_skills", []) %}
+
+                    <span class="badge badge-missing">
+                        {{ skill }}
+                    </span>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <!-- STRENGTHS -->
+
+            <div class="card">
+
+                <h3>
+                    Strengths
+                </h3>
+
+                <br>
+
+                <ul>
+
+                    {% for item in r.result.get("strengths", []) %}
+
+                    <li>
+                        {{ item }}
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+            <!-- WEAKNESSES -->
+
+            <div class="card">
+
+                <h3>
+                    Areas To Improve
+                </h3>
+
+                <br>
+
+                <ul>
+
+                    {% for item in r.result.get("weaknesses", []) %}
+
+                    <li>
+                        {{ item }}
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h3>
+                Career Roadmap
+            </h3>
+
+            <br>
+
+            <ul>
+
+                {% for item in r.result.get("roadmap", []) %}
+
+                <li>
+                    {{ item }}
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+        </div>
+
+        <div class="card">
+
+            <h3>
+                Interview Questions
+            </h3>
+
+            <br>
+
+            <ul>
+
+                {% for item in r.result.get("interview_questions", []) %}
+
+                <li>
+                    {{ item }}
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    {% endfor %}
+
+{% else %}
+
+<div class="card">
+
+    <h2>
+        No Reports Yet
+    </h2>
+
+    <p class="sub-text">
+
+        Analyze your first resume to start building your history.
+
+    </p>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

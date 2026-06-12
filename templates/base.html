@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}
+        AI Career Copilot
+        {% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="container">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-brain"></i>
+
+            AI Career Copilot
+
+        </div>
+
+        {% if session.get("user_id") %}
+
+        <nav>
+
+            <a href="{{ url_for('dashboard') }}">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                Dashboard
+
+            </a>
+
+            <a href="{{ url_for('history') }}">
+
+                <i class="fa-solid fa-clock-rotate-left"></i>
+
+                History
+
+            </a>
+
+            <a href="{{ url_for('logout') }}">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                Logout
+
+            </a>
+
+        </nav>
+
+        {% endif %}
+
+    </div>
+
+</header>
+
+<main class="container">
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="alert">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+<footer>
+
+    <p>
+
+        <i class="fa-solid fa-rocket"></i>
+
+        Built with Flask & AI
+
+    </p>
+
+</footer>
+
+<button id="theme-toggle">
+    🌙
+</button>
+
+<script>
+const btn =
+document.getElementById(
+    "theme-toggle"
+);
+
+btn.addEventListener(
+    "click",
+    () => {
+
+        document.body
+        .classList.toggle(
+            "dark"
+        );
+
+        localStorage.setItem(
+            "theme",
+            document.body.classList.contains("dark")
+                ? "dark"
+                : "light"
+        );
+    }
+);
+
+if(
+    localStorage.getItem("theme")
+    === "dark"
+){
+    document.body.classList.add(
+        "dark"
+    );
+}
+</script>
+
+</body>
+
+</html>
