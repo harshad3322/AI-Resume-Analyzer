@@ -126,6 +126,42 @@ Application will start at:
 http://127.0.0.1:5000
 ```
 
+## Model Performance
+
+### Invoice Risk Classification
+
+| Model | Accuracy |
+|---------|---------|
+| Logistic Regression | 73.94% |
+| Decision Tree Classifier | 94.32% |
+| Random Forest Classifier | 95.67% |
+| Tuned Random Forest Classifier | 96.66% |
+
+### Best Model
+
+Random Forest Classifier
+
+Accuracy: 96.66%
+Precision: 100%
+Recall: 90%
+F1 Score: 95%
+
+### Freight Cost Prediction
+
+| Model | MAE | RMSE | R² Score |
+|---------|---------:|---------:|---------:|
+| Linear Regression | 24.11 | 124.72 | 96.99% |
+| Decision Tree Regressor | 32.65 | 163.74 | 94.81% |
+| Random Forest Regressor | 28.27 | 142.21 | 96.08% |
+
+**Best Model:** Linear Regression
+
+Performance:
+- MAE: 24.11
+- RMSE: 124.72
+- R² Score: 96.99%
+
+
 ## How It Works
 
 1. User uploads a PDF or DOCX resume.
@@ -154,8 +190,16 @@ http://127.0.0.1:5000
 
 ## Author
 
-Your Name
+**Harshad Milind Chavhan**
+
+Aspiring Software Developer passionate about Python, AI, and Full-Stack Development.
+
+## Contact
+
+* GitHub: https://github.com/harshad3322
+* LinkedIn: https://www.linkedin.com/in/harshad-chavhan-24885b329
 
 ## License
 
 This project is intended for educational and portfolio purposes.
+
