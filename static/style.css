@@ -574,6 +574,23 @@ footer{
     color:#ffffff;
 }
 
+.dark .auth-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+}
+
+.dark .auth-card h2,
+.dark .auth-card label,
+.dark .auth-card p {
+    color: #f8fafc;
+}
+
+.dark .auth-card input {
+    background: #0f172a;
+    color: white;
+    border: 1px solid #334155;
+}
+
 .dark input,
 .dark textarea{
 
@@ -609,4 +626,25 @@ footer{
 
     font-size:20px;
 }
+
+/* .password-container {
+    position: relative;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 80px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #2563eb;
+} */
 
